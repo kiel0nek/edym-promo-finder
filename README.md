@@ -16,7 +16,7 @@ npm start
 ### How it work
 
 It call all links from 'links.txt' and look for product with price 0.01. (0,01 zł)
-It will scrape all sites, every two minutes
+It will scrape all sites, every minute and will display only fresh links. (links that wasn't found on last search)
 
 ## Built With
 * [Axios](https://github.com/axios/axios) - Used to make requests

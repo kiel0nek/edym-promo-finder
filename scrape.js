@@ -1,6 +1,9 @@
 const axios = require('axios');
 const fs = require('fs');
 
+let number = 1;
+let promoLinks = []
+
 const scrapePage = (pageUrl) => {
     axios(pageUrl)
         .then(response => {
@@ -11,8 +14,12 @@ const scrapePage = (pageUrl) => {
                         product.regular_price === '0,01 zł' ||
                         product.price_amount === 0.01 ||
                         product.regular_price_amount === 0.01) {
-                        console.log('HIT!');
-                        console.log(product.name, pageUrl, product.url);
+                        if(!promoLinks.find(link => link === product.url)) {
+                            console.log('HIT - no.' + number);
+                            console.log(product.url);
+                            number = number + 1
+                            promoLinks.push(product.url)
+                        }
                     }
                 });
             } else {
@@ -29,4 +36,4 @@ setInterval(() => {
     pageUrlsList.forEach(pageUrl => {
         scrapePage(pageUrl);
     })
-}, 2 * 60 * 1000);
+}, 1 * 60 * 1000);
