@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 let number = 1;
-let promoLinks = []
+let promoLinks = [];
 
 const scrapePage = (pageUrl) => {
     axios(pageUrl)
@@ -14,7 +14,7 @@ const scrapePage = (pageUrl) => {
                         product.regular_price === '0,01 zł' ||
                         product.price_amount === 0.01 ||
                         product.regular_price_amount === 0.01) {
-                        if(!promoLinks.find(link => link === product.url)) {
+                        if (!promoLinks.find(link => link === product.url)) {
                             console.log('HIT - no.' + number);
                             console.log(product.url);
                             number = number + 1
@@ -23,10 +23,10 @@ const scrapePage = (pageUrl) => {
                     }
                 });
             } else {
-                console.log('ERR! Empty products list!');
+                console.log(`ERR! Empty products list! ${pageUrl}`);
             }
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(`Loading page error! ${pageUrl}`))
 };
 
 const pageUrlsList = fs.readFileSync('links.txt').toString().split("\n");
