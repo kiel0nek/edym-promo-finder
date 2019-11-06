@@ -20,6 +20,7 @@ It will scrape all sites, every minute and will display only fresh links. (links
 
 ## Built With
 * [Axios](https://github.com/axios/axios) - Used to make requests
+* [node-notifier](https://github.com/mikaelbr/node-notifier) - Used to make notification
 
 ## Authors
 
