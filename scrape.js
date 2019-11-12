@@ -1,5 +1,6 @@
 const axios = require('axios');
 const fs = require('fs');
+const notifier = require('node-notifier');
 
 let number = 1;
 let promoLinks = [];
@@ -17,8 +18,12 @@ const scrapePage = (pageUrl) => {
                         if (!promoLinks.find(link => link === product.url)) {
                             console.log('HIT - no.' + number);
                             console.log(product.url);
-                            number = number + 1
-                            promoLinks.push(product.url)
+                            notifier.notify({
+                                title: '---HIT!---',
+                                message: 'New product found!'
+                            });
+                            number = number + 1;
+                            promoLinks.push(product.url);
                         }
                     }
                 });
@@ -26,7 +31,7 @@ const scrapePage = (pageUrl) => {
                 console.log(`ERR! Empty products list! ${pageUrl}`);
             }
         })
-        .catch(err => console.log(`Loading page error! ${pageUrl}`))
+        .catch(() => console.log(`Loading page error! ${pageUrl}`))
 };
 
 const pageUrlsList = fs.readFileSync('links.txt').toString().split("\n");
